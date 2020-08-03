@@ -1,3 +1,5 @@
+"use strict";
+
 import gulp from "gulp";
 import sass from "gulp-sass";
 import autoprefixer from "gulp-autoprefixer";
@@ -23,6 +25,7 @@ const watch = () => {
 const scss = () =>
   gulp
     .src(routes.scss.src)
+    .pipe(sass().on("error", sass.logError))
     .pipe(
       autoprefixer({
         flexbox: true,
@@ -30,7 +33,6 @@ const scss = () =>
       })
     )
     .pipe(minify())
-    .pipe(sass().on("error", sass.logError))
     .pipe(gulp.dest(routes.scss.dist));
 
 const prepare = gulp.series([clean]);
